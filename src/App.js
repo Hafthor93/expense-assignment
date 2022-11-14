@@ -1,22 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useRef } from "react";
 
-function App() {
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [displayValue, setDisplayValue] = useState([]);
+
+  const costValue = useRef(0);
+  const inputValue = useRef("");
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Add Expense</h1>
+        <p>Item: [{displayValue.toString()}]</p>
+        <input onChange={(event) => {
+							inputValue.current = event.target.value;
+						}} ></input>
+        <p>Cost: [{count}]</p>
+        <input onChange={(event) => {
+							costValue.current = event.target.value;
+						}}></input>
+        <button type="button" 
+						onClick={() => {
+              setDisplayValue(displayValue.concat(inputValue.current))
+              setCount(parseInt(costValue.current) + count);
+						}}>Add</button>
       </header>
     </div>
   );
